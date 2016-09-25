@@ -1,0 +1,3 @@
+include COPYING AUTHORS ChangeLog requirements.txt test-requirements.txt rtd-requirements.txt
+include tox.ini .testr.conf .travis.yml
+recursive-include docs *.rst api/*.rst samples/*py Makefile

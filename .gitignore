@@ -1,0 +1,9 @@
+*.pyc
+__pycache__
+build
+*egg-info
+.testrepository
+.tox
+.coverage
+cover
+htmlcov
