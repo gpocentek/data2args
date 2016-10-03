@@ -39,6 +39,7 @@ The following example describes how you would typically use data2args::
 *Supported transformers*:
 
 * :ref:`transformers_argparse`
+* :ref:`transformers_cerberus`
 """
 
 import importlib
