@@ -14,7 +14,7 @@ It is based on two main components:
     Readers parse the data to transform it into an internal representation.
 
 **Transformers**
-    Transformers use the internal representation to general argument parsers.
+    Transformers use the internal representation to generate argument parsers.
 
 Using the API
 =============
