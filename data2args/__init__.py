@@ -47,6 +47,9 @@ import importlib
 from data2args import exc
 
 
+__version__ = '0.0.1'
+
+
 def get_reader(type):
     """Return a Reader object of the given type.
 
