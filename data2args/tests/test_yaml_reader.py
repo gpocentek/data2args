@@ -54,10 +54,56 @@ parameters:
       yaml: here
 '''
 
+path_level_0 = '''---
+a:
+  - item1
+'''
+
+path_level_1_dict = '''---
+a:
+  b:
+    - item1
+'''
+
+path_level_2_list = '''---
+a:
+  - b:
+      - item1
+'''
+
 
 class TestYAMLReader(unittest.TestCase):
     def setUp(self):
         self.reader = _yaml.Reader()
+
+    def test_get_from_path(self):
+        data = yaml.load(path_level_0, Loader=yaml.SafeLoader)
+        ret = _yaml._get_from_path(data, 'a')
+        self.assertEqual(len(ret), 1)
+        self.assertEqual(ret[0], 'item1')
+
+        data = yaml.load(path_level_1_dict, Loader=yaml.SafeLoader)
+        ret = _yaml._get_from_path(data, 'a.b')
+        self.assertEqual(len(ret), 1)
+        self.assertEqual(ret[0], 'item1')
+
+        data = yaml.load(path_level_2_list, Loader=yaml.SafeLoader)
+        ret = _yaml._get_from_path(data, 'a.0.b')
+        self.assertEqual(len(ret), 1)
+        self.assertEqual(ret[0], 'item1')
+
+    def test_fail_get_from_path(self):
+        data = yaml.load(path_level_0, Loader=yaml.SafeLoader)
+        with self.assertRaises(KeyError):
+            _yaml._get_from_path(data, 'a.b')
+
+        data = yaml.load(path_level_1_dict, Loader=yaml.SafeLoader)
+        with self.assertRaises(KeyError):
+            _yaml._get_from_path(data, 'a.0')
+
+        data = yaml.load(path_level_2_list, Loader=yaml.SafeLoader)
+        with self.assertRaises(KeyError):
+            _yaml._get_from_path(data, 'a.b')
 
     def test_invalid_yaml(self):
         with self.assertRaises(yaml.error.YAMLError):

@@ -22,6 +22,22 @@ from data2args import readers
 from data2args import types as _types
 
 
+def _get_from_path(data, path):
+    def get_data_at_path(data, path):
+        if isinstance(data, dict):
+            return data[path]
+        else:
+            return data[int(path)]
+
+    items = path.split('.')
+    for item in items:
+        try:
+            data = get_data_at_path(data, item)
+        except (KeyError, ValueError):
+            raise KeyError
+    return data
+
+
 class Reader(readers.BaseClass):
     def load(self, data, args_attr='parameters', constraints_attr=None):
         """Parser for yaml input.
@@ -33,7 +49,7 @@ class Reader(readers.BaseClass):
         """
         data = yaml.load(data, Loader=yaml.SafeLoader)
         try:
-            self._src = data[args_attr]
+            self._src = _get_from_path(data, args_attr)
         except KeyError:
             raise exc.InvalidDataError('No such key: %s' % args_attr)
         self._constraints = (data[constraints_attr] if constraints_attr
