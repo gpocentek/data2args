@@ -23,6 +23,22 @@ from data2args import types as _types
 
 
 def _get_from_path(data, path):
+    """Returns the data located at path.
+
+    Path is of the form 'a.b.c' where each item can be either a string
+    representing the key of a dict or an integer representing the index in a
+    list. Valid examples are 'data.parameters', 'data.0.args'.
+
+    Args:
+        data: The data in which we should descend.
+        path: The path to follow.
+
+    Returns:
+        The value found at path.
+
+    Raises:
+        KeyError: When the path is not valid for data.
+    """
     def get_data_at_path(data, path):
         if isinstance(data, dict):
             return data[path]

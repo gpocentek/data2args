@@ -46,7 +46,7 @@ keys:
      - no
      - The type of the argument (see above list)
    * - ``default``
-     - 
+     -
      - no
      - Default value when the argument is not used
    * - ``help``
@@ -103,3 +103,21 @@ YAML example:
      - type: string
        key: who
        positional: True
+
+You can use a path instead of a string. Separate the items with the ``.`` (dot)
+character. Items can be strings for dict keys, or integers for list indexes.
+
+For example:
+
+.. code-block:: python
+
+   data = '''
+   foo:
+     - bar
+     - params:
+         - type: integer
+           name: i
+   '''
+
+   reader = data2args.get_reader('yaml')
+   reader.load(data, args_attr='foo.1.params')
