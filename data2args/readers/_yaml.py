@@ -23,9 +23,6 @@ from data2args import types as _types
 
 
 class Reader(readers.BaseClass):
-    def __init__(self):
-        self._params = []
-
     def load(self, data, args_attr='parameters', constraints_attr=None):
         """Parser for yaml input.
 
