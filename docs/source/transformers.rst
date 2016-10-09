@@ -21,7 +21,7 @@ Use the following code to create and use the argparse transformer:
    # use the parser
    args = parser.parse_args()
 
-.. _tranformers_cerberus:
+.. _transformers_cerberus:
 
 Cerberus transformer
 ====================
