@@ -21,6 +21,20 @@ Use the following code to create and use the argparse transformer:
    # use the parser
    args = parser.parse_args()
 
+The argparse transformer can also add arguments to an existing parser using the
+``parent`` parameter:
+
+.. code-block:: python
+
+   import argparse
+   import data2args
+
+   parser = argparse.ArgumentParser()
+   parser.add_argument('foo')
+   transformer = data2args.get_transformer('argparse', reader)
+   parser = transformer.transform(parent=parser)
+
+
 .. _transformers_cerberus:
 
 Cerberus transformer

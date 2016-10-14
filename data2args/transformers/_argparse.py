@@ -60,8 +60,19 @@ class Transformer(transformers.BaseClass):
 
         return arg_key, args
 
-    def transform(self):
-        parser = argparse.ArgumentParser()
+    def transform(self, parent=None):
+        """Generate the argparse parser.
+
+        Args:
+            parent (argparse.ArgumentParser): If not None, new argument will be
+                                              added to the parser. Otherwise a
+                                              new parser will be created.
+
+        Returns:
+            argparse.ArgumentParser: The new parser or an updated parser if
+                                     ``parent`` is provided.
+        """
+        parser = parent if parent else argparse.ArgumentParser()
         for param in self._params:
             key, args = self._get_args(param)
             parser.add_argument(key, **args)

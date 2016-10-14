@@ -28,6 +28,21 @@ DEFAULT_KEYS = ['default', 'help', 'required']
 
 
 class TestArgparseTransformer(unittest.TestCase):
+    def test_parent(self):
+        parser = argparse.ArgumentParser()
+        parser.add_argument('foo')
+
+        tr = _argparse.Transformer([types.StringArg('dummy')])
+        new_parser = tr.transform(parser)
+        self.assertEqual(new_parser, parser)
+        args = new_parser.parse_args(['--dummy=dummy', 'foo'])
+        self.assertTrue(hasattr(args, 'foo'))
+        self.assertTrue(hasattr(args, 'dummy'))
+
+        tr = _argparse.Transformer([types.StringArg('dummy')])
+        new_parser = tr.transform()
+        self.assertNotEqual(new_parser, parser)
+
     def test_positional(self):
         tr = _argparse.Transformer([])
 
